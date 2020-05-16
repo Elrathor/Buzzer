@@ -1,0 +1,25 @@
+ apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: buzzer
+  name: buzzer
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: buzzer
+  template:
+    metadata:
+      labels:
+        app: buzzer
+    spec:
+      containers:
+      - image: buzzer
+        imagePullPolicy: "always"
+        name: buzzer
+        ports:
+        - containerPort: 3000
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
