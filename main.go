@@ -7,6 +7,7 @@ import (
 
 func main() {
     r := gin.Default()
+    r.LoadHTMLGlob("template/*")
     r.GET("/", route.GetEntry)
     r.GET("/data", route.GetData)
     r.GET("/admin", route.GetAdmin)
