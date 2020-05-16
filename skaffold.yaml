@@ -3,10 +3,12 @@ kind: Config
 metadata:
   name: buzzer
 build:
+  local:
+    push: false
   artifacts:
   - image: buzzer
     docker:
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
 deploy:
   kubectl:
     manifests:
