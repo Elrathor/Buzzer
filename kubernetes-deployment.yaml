@@ -20,8 +20,6 @@ spec:
           ports:
             - containerPort: 3000
       restartPolicy: Always
-      serviceAccountName: ""
-      volumes: null
 
 ---
 
@@ -46,7 +44,6 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
   labels:
     app: redis
   name: redis
