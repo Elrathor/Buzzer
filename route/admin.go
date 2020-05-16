@@ -1,9 +1,12 @@
 package route
 
-import "github.com/gin-gonic/gin"
+import (
+    "github.com/gin-gonic/gin"
+    "net/http"
+)
 
 func GetAdmin (c *gin.Context) {
-    c.JSON(200, gin.H{
-        "message": "pong",
+    c.HTML(http.StatusOK, "admin.tmpl", gin.H{
+        "title": "This is a test",
     })
 }
