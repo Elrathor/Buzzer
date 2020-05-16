@@ -13,7 +13,7 @@ type Redis struct {
 
 func (r *Redis)Init(){
     r.client := redis.NewClient(&redis.Options{
-        Addr:     "redis",
+        Addr:     "redis-master:6379",
         Password: "",
         DB:       0,
     })
