@@ -25,6 +25,8 @@ WORKDIR /dist
 
 # Copy binary from build to main folder
 RUN cp /build/main .
+RUN mkdir template
+RUN cp /build/template/* template/.
 
 # Export necessary port
 EXPOSE 3000
