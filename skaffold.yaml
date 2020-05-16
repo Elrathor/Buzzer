@@ -1,0 +1,11 @@
+apiVersion: skaffold/v2beta3
+kind: Config
+metadata:
+  name: buzzer
+build:
+  artifacts:
+  - image: buzzer
+deploy:
+  kubectl:
+    manifests:
+    - kubernetes-deployment.yaml

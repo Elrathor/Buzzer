@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: buzzer
+  name: buzzer-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: buzzer
+  template:
+    metadata:
+      labels:
+        app: buzzer
+    spec:
+      containers:
+        - image: buzzer
+          name: buzzer-pod
+          ports:
+            - containerPort: 3000
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: buzzer
+  name: buzzer
+spec:
+  type: LoadBalancer
+  ports:
+    - name: "80"
+      protocol: TCP
+      port: 80
+      targetPort: 3000
+  selector:
+    app: buzzer
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    app: redis
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - image: redis
+          name: redis
+      restartPolicy: Always
+      serviceAccountName: ""
