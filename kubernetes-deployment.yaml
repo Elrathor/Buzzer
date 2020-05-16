@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - image: buzzer
-          imagePullPolicy: "always"
+          imagePullPolicy: "Always"
           name: buzzer
           ports:
             - containerPort: 3000
@@ -63,7 +63,7 @@ spec:
     spec:
       containers:
         - image: redis
-          imagePullPolicy: "always"
+          imagePullPolicy: "Always"
           name: redis
       restartPolicy: Always
       serviceAccountName: ""
