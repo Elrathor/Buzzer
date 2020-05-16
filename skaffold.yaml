@@ -1,14 +1,10 @@
-apiVersion: skaffold/v2beta1
+apiVersion: skaffold/v2beta3
 kind: Config
 metadata:
   name: buzzer
 build:
-  local:
-    push: false
   artifacts:
   - image: buzzer
-    docker:
-      dockerfile: Dockerfile
 deploy:
   kubectl:
     manifests:

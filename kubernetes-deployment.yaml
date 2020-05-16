@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   labels:
     app: buzzer
-  name: buzzer
+  name: buzzer-deploy
 spec:
   replicas: 3
   selector:
@@ -16,8 +16,7 @@ spec:
     spec:
       containers:
         - image: buzzer
-          imagePullPolicy: "Always"
-          name: buzzer
+          name: buzzer-pod
           ports:
             - containerPort: 3000
       restartPolicy: Always
@@ -63,7 +62,6 @@ spec:
     spec:
       containers:
         - image: redis
-          imagePullPolicy: "Always"
           name: redis
       restartPolicy: Always
       serviceAccountName: ""
