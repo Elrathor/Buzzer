@@ -2,16 +2,19 @@ package main
 
 import (
 	"buzzer/m/v2/route"
-	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	r := gin.Default()
+	r.Static("/static", "./static")
 	r.LoadHTMLGlob("template/*")
-	r.Use(static.Serve("/", static.LocalFile("/public", false)))
 	r.GET("/", route.GetEntry)
-	r.GET("/data", route.GetData)
+	rData := r.Group("/data")
+	{
+		rData.GET("/buzzer", route.GetAllBuzzers)
+	}
+
 	r.GET("/admin", route.GetAdmin)
 	r.GET("/monitoring", route.GetMonitoring)
 

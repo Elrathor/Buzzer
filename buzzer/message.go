@@ -6,7 +6,7 @@ import (
 )
 
 type Message struct {
-	uuid       uuid.UUID
+	Uuid       uuid.UUID
 	TeamName   string
 	PlayerName string
 	BuzzTime   time.Time
