@@ -21,6 +21,11 @@ func main() {
 
 	corsConfig := cors.DefaultConfig()
 	corsConfig.AllowMethods = []string{"GET", "POST", "DELETE"}
+	corsConfig.AllowOrigins = []string{
+		"jsdelivr.net",
+		"bootstrapcdn.com",
+		"jquery.com",
+	}
 
 	r.Use(cors.New(corsConfig))
 
