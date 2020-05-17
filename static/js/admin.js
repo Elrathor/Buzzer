@@ -11,6 +11,9 @@ httpRead.onreadystatechange = function(){
     }
 }
 
+httpRead.open("GET", url, true);
+httpRead.send();
+
 let httpDelete = new XMLHttpRequest();
 
 window.setInterval(function () {
@@ -45,7 +48,8 @@ function drawTabel() {
         let cell0 = row.insertCell(0);
         let cell1 = row.insertCell(1);
         let cell2 = row.insertCell(2);
-        cell0.innerHTML = value.BuzzTime;
+        let date = new Date(value.BuzzTime);
+        cell0.innerHTML = date.toDateString() + " " +date.toLocaleTimeString();
         cell1.innerHTML = value.PlayerName;
         cell2.innerHTML = value.TeamName;
     })
