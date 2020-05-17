@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - image: buzzer
-          name: buzzer
+          name: elrathor/buzzer
           ports:
             - containerPort: 3000
       restartPolicy: Always
