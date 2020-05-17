@@ -27,7 +27,11 @@ func main() {
 		rData.DELETE("/buzzer", route.DeleteBuzzers)
 	}
 
-	r.GET("/admin", route.GetAdmin)
+	rAdmin := r.Group("/admin", gin.BasicAuth(gin.Accounts{
+		"admin": "bee",
+	}))
+
+	rAdmin.GET("/", route.GetAdmin)
 	r.GET("/monitoring", route.GetMonitoring)
 
 	r.Run(":3000")
