@@ -7,10 +7,7 @@ import (
 	"log"
 )
 
-var redisRepository repository.Redis
-
 func main() {
-
 	redisRepository := new(repository.Redis)
 	redisRepository.Init()
 	ping, err := redisRepository.Ping()
