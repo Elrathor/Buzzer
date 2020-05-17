@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"log"
+	"sort"
 )
 
 var redisRepository repository.Redis
@@ -17,6 +18,12 @@ func GetAllBuzzers(c *gin.Context) {
 	if err != nil {
 		c.JSON(500, err)
 	}
+
+	//Order from Old to New
+
+	sort.SliceStable(buzzers[:], func(i, j int) bool {
+		return buzzers[j].BuzzTime.After(buzzers[i].BuzzTime)
+	})
 
 	c.JSON(200, buzzers)
 }
