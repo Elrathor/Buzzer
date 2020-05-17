@@ -27,6 +27,7 @@ WORKDIR /dist
 RUN cp /build/main .
 RUN mkdir template
 RUN cp /build/template/* template/.
+RUN cp /build/public/* public/.
 
 # Export necessary port
 EXPOSE 3000
