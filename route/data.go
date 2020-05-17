@@ -42,6 +42,20 @@ func PostBuzzer(c *gin.Context) {
 	c.JSON(200, data)
 }
 
+func DeleteBuzzers(c *gin.Context) {
+	lazyInitializeDB()
+	result, err := redisRepository.DeleteAllMessages()
+
+	if err != nil {
+		log.Println(err)
+		c.JSON(500, err)
+	}
+
+	c.JSON(200, gin.H{
+		"numberOfElements": result,
+	})
+}
+
 func lazyInitializeDB() {
 	if !redisRepository.GetIsInitialized() {
 		redisRepository.Init()

@@ -24,6 +24,7 @@ func main() {
 	{
 		rData.GET("/buzzer", route.GetAllBuzzers)
 		rData.POST("/buzzer", route.PostBuzzer)
+		rData.DELETE("/buzzer", route.DeleteBuzzers)
 	}
 
 	r.GET("/admin", route.GetAdmin)
