@@ -3,6 +3,7 @@ package main
 import (
 	"buzzer/m/v2/repository"
 	"buzzer/m/v2/route"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"log"
 )
@@ -17,6 +18,12 @@ func main() {
 	}
 
 	r := gin.Default()
+
+	corsConfig := cors.DefaultConfig()
+	corsConfig.AllowMethods = []string{"GET", "POST", "DELETE"}
+
+	r.Use(cors.New(corsConfig))
+
 	r.Static("/static", "./static")
 	r.LoadHTMLGlob("template/*")
 	r.GET("/", route.GetEntry)
