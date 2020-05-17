@@ -19,9 +19,15 @@ func (r *Redis) Init() {
 		Password: "",
 		DB:       0,
 	})
+
+	r.isInitialized = true
 }
 
-func (r Redis) GetMessage(id uuid.UUID) (message buzzer.Message, err error) {
+func (r *Redis) GetIsInitialized() bool {
+	return r.isInitialized
+}
+
+func (r *Redis) GetMessage(id uuid.UUID) (message buzzer.Message, err error) {
 	messageMap, rError := r.client.HGetAll(id.String()).Result()
 	err = rError //explicitly setting error to prevent shadowing
 
@@ -43,15 +49,7 @@ func (r Redis) GetMessage(id uuid.UUID) (message buzzer.Message, err error) {
 	return
 }
 
-func (r Redis) SetMessage(message buzzer.Message) (messageResult buzzer.Message, err error) {
-
-	message.Uuid, err = uuid.NewRandom()
-
-	if err != nil {
-		return
-
-	}
-
+func (r *Redis) SetMessage(message buzzer.Message) (messageResult buzzer.Message, err error) {
 	messageMap := make(map[string]interface{})
 	messageMap[buzzer.KeyUuid] = message.Uuid.String()
 	messageMap[buzzer.KeyTeamName] = message.TeamName
@@ -63,7 +61,7 @@ func (r Redis) SetMessage(message buzzer.Message) (messageResult buzzer.Message,
 	return
 }
 
-func (r Redis) GetAllMessages() (messages []buzzer.Message, err error) {
+func (r *Redis) GetAllMessages() (messages []buzzer.Message, err error) {
 	messageKeys, err := r.client.Keys("*").Result()
 
 	for _, messageKey := range messageKeys {
@@ -87,17 +85,17 @@ func (r Redis) GetAllMessages() (messages []buzzer.Message, err error) {
 	return
 }
 
-func (r Redis) DeleteMessage(id uuid.UUID) (numberOfDeletedKeys int64, err error) {
+func (r *Redis) DeleteMessage(id uuid.UUID) (numberOfDeletedKeys int64, err error) {
 	numberOfDeletedKeys, err = r.client.Del(id.String()).Result()
 	return
 }
 
-func (r Redis) DeleteAllMessages() (result string, err error) {
+func (r *Redis) DeleteAllMessages() (result string, err error) {
 	result, err = r.client.FlushDB().Result()
 	return
 }
 
-func (r Redis) Ping() (result string, err error) {
+func (r *Redis) Ping() (result string, err error) {
 	result, err = r.client.Ping().Result()
 	return
 }

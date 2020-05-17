@@ -1,44 +1,70 @@
 package route
 
 import (
-    "buzzer/m/v2/buzzer"
-    "github.com/gin-gonic/gin"
-    "github.com/google/uuid"
-    "log"
-    "time"
+	"buzzer/m/v2/buzzer"
+	"buzzer/m/v2/repository"
+	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
+	"log"
+	"sort"
 )
 
-func GetData (c *gin.Context) {
-    c.JSON(200, gin.H{
-        "message": "pong",
-    })
+var redisRepository repository.Redis
+
+func GetAllBuzzers(c *gin.Context) {
+	lazyInitializeDB()
+	buzzers, err := redisRepository.GetAllMessages()
+
+	if err != nil {
+		c.JSON(500, err)
+	}
+
+	//Order from Old to New
+
+	sort.SliceStable(buzzers[:], func(i, j int) bool {
+		return buzzers[j].BuzzTime.After(buzzers[i].BuzzTime)
+	})
+
+	c.JSON(200, buzzers)
 }
 
-func GetAllBuzzers (c *gin.Context) {
-    uuidVal, _ := uuid.NewRandom()
-    buzzerOne := buzzer.Message{
-        Uuid: uuidVal,
-        TeamName:   "Elephant",
-        PlayerName: "Tobias",
-        BuzzTime:   time.Now(),
-    }
-    buzzers := [...]buzzer.Message{buzzerOne, buzzerOne}
+func PostBuzzer(c *gin.Context) {
+	lazyInitializeDB()
+	var data buzzer.Message
+	err := c.BindJSON(&data)
+	data.Uuid, _ = uuid.NewRandom()
 
-    c.JSON(200, buzzers)
-    //TODO Get Data from DB
+	if err != nil {
+		log.Println(err)
+		c.JSON(500, err)
+	}
+
+	data, err = redisRepository.SetMessage(data)
+
+	if err != nil {
+		log.Println(err)
+		c.JSON(500, err)
+	}
+
+	c.JSON(200, data)
 }
 
-func PostBuzzer(c *gin.Context){
-    var data buzzer.Message
-    err := c.BindJSON(&data)
-    data.Uuid, _ = uuid.NewRandom()
+func DeleteBuzzers(c *gin.Context) {
+	lazyInitializeDB()
+	result, err := redisRepository.DeleteAllMessages()
 
-    if err != nil {
-        log.Println(err)
-        c.JSON(500, err)
-    }
+	if err != nil {
+		log.Println(err)
+		c.JSON(500, err)
+	}
 
-    log.Println(data)
-    c.JSON(200, data)
-    //TODO Store data in DB
+	c.JSON(200, gin.H{
+		"numberOfElements": result,
+	})
+}
+
+func lazyInitializeDB() {
+	if !redisRepository.GetIsInitialized() {
+		redisRepository.Init()
+	}
 }
