@@ -13,6 +13,7 @@ func main() {
 	rData := r.Group("/data")
 	{
 		rData.GET("/buzzer", route.GetAllBuzzers)
+		rData.POST("/buzzer", route.PostBuzzer)
 	}
 
 	r.GET("/admin", route.GetAdmin)
