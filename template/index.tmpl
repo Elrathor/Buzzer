@@ -1,16 +1,34 @@
-<html>
+<html lang="en">
 <head>
-    <title>Buzzer</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Buzzzer</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Buzzer</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin">🔒 Adminpanel </a>
+            </li>
+        </ul>
+    </div>
+</nav>
 <div class="container">
     <div class="row">
-        <div class="col">
+        <div class="col"></div>
+        <div class="col-auto">
             <h1>
-                Jeopardy!
+                JeoparBee Buzzzzzzer!
             </h1>
         </div>
+        <div class="col"></div>
     </div>
     <div class="row">
         <div class="col">
@@ -25,7 +43,7 @@
                     <input type="text" class="form-control" id="inputTeamName">
                     <small id="nameHelp" class="form-text text-muted">Put your team name here.</small>
                 </div>
-                <button type="button" id="buttonBuzzer" class="btn btn-primary btn-lg bg-danger">Buzzer!</button>
+                <button type="button" id="buttonBuzzer" class="btn btn-primary btn-lg bg-danger w-100">Buzzer!</button>
             </form>
         </div>
     </div>
