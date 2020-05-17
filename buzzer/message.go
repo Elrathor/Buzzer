@@ -6,8 +6,8 @@ import (
 )
 
 type Message struct {
-	Uuid       uuid.UUID
-	TeamName   string
-	PlayerName string
-	BuzzTime   time.Time
+	Uuid       uuid.UUID `form:"Uuid" json:"Uuid" xml:"Uuid"`
+	TeamName   string `form:"TeamName" json:"TeamName" xml:"TeamName"  binding:"required"`
+	PlayerName string `form:"PlayerName" json:"PlayerName" xml:"PlayerName"  binding:"required"`
+	BuzzTime   time.Time `form:"BuzzTime" json:"BuzzTime" xml:"BuzzTime"  binding:"required"`
 }
