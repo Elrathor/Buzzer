@@ -25,6 +25,14 @@ WORKDIR /dist
 
 # Copy binary from build to main folder
 RUN cp /build/main .
+RUN mkdir template
+RUN mkdir -p static/css
+RUN mkdir -p static/js
+RUN mkdir -p static/img
+RUN cp /build/template/* template/.
+RUN cp /build/static/css/* static/css/.
+RUN cp /build/static/js/* static/js/.
+RUN cp /build/static/img/* static/img/.
 
 # Export necessary port
 EXPOSE 3000
