@@ -5,7 +5,7 @@ metadata:
     app: buzzer
   name: buzzer-deploy
 spec:
-  replicas: 3
+  replicas: 6
   selector:
     matchLabels:
       app: buzzer
@@ -15,8 +15,12 @@ spec:
         app: buzzer
     spec:
       containers:
-        - image: buzzer
-          name: elrathor/buzzer
+        - image: eu.gcr.io/buzzer-277517/buzzer
+          name: buzzer
+          resources:
+            limits:
+              cpu: 500m
+              memory: 100Mi
           ports:
             - containerPort: 3000
       restartPolicy: Always
