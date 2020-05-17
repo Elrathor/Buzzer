@@ -81,5 +81,9 @@ func main() {
 	rAdmin.GET("/", route.GetAdmin)
 	r.GET("/monitoring", route.GetMonitoring)
 
-	r.Run(":3000")
+	err = r.Run(":3000")
+
+	if err != nil {
+		log.Panic(err)
+	}
 }
