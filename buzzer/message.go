@@ -5,6 +5,13 @@ import (
 	"time"
 )
 
+const (
+	KeyTeamName   = "TeamName"
+	KeyPlayerName = "PlayerName"
+	KeyBuzzTime   = "BuzzTime"
+	KeyUuid       = "Uuid"
+)
+
 type Message struct {
 	Uuid       uuid.UUID
 	TeamName   string
