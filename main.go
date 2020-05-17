@@ -5,7 +5,6 @@ import (
 	"buzzer/m/v2/route"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/go-redis/redis"
 	libredis "github.com/go-redis/redis/v7"
 	limiter "github.com/ulule/limiter/v3"
 	mgin "github.com/ulule/limiter/v3/drivers/middleware/gin"
@@ -31,7 +30,7 @@ func main() {
 	}
 
 	// Create a redis client.
-	option, err := libredis.ParseURL("redis://localhost:6379/0")
+	option, err := libredis.ParseURL("redis://redis-master:6379/1")
 	if err != nil {
 		log.Fatal(err)
 		return
@@ -55,9 +54,9 @@ func main() {
 	corsConfig := cors.DefaultConfig()
 	corsConfig.AllowMethods = []string{"GET", "POST", "DELETE"}
 	corsConfig.AllowOrigins = []string{
-		"jsdelivr.net",
-		"bootstrapcdn.com",
-		"jquery.com",
+		"https://jsdelivr.net",
+		"https://bootstrapcdn.com",
+		"https://jquery.com",
 	}
 
 	r := gin.Default()
