@@ -3,6 +3,7 @@ package route
 import (
 	"buzzer/m/v2/buzzer"
 	"buzzer/m/v2/repository"
+	"buzzer/m/v2/util"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"log"
@@ -38,6 +39,10 @@ func PostBuzzer(c *gin.Context) {
 		log.Println(err)
 		c.JSON(500, err)
 	}
+
+	//Sanitize Names
+	data.PlayerName = util.RemoveNonAlphanumericCharacters(data.PlayerName)
+	data.TeamName = util.RemoveNonAlphanumericCharacters(data.TeamName)
 
 	data, err = redisRepository.SetMessage(data)
 
